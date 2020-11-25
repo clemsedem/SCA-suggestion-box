@@ -28,5 +28,9 @@ html, body, h1, h2, h3, h4, h5, h6, div {
     background-color: transparent;
     margin-bottom: -80px;
     margin-top: -35px;
+}
 
+#outter {
+    min-height: 30%;
+    max-height: 20px;
 }

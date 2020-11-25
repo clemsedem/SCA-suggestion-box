@@ -4,7 +4,8 @@ class SuggestionsController < ApplicationController
   # GET /suggestions
   # GET /suggestions.json
   def index
-    @suggestions = Suggestion.all
+    @suggestions = Suggestion.all.order('id desc')
+    @suggestion = Suggestion.new
   end
 
   # GET /suggestions/1
@@ -28,10 +29,11 @@ class SuggestionsController < ApplicationController
 
     respond_to do |format|
       if @suggestion.save
-        format.html { redirect_to @suggestion, notice: 'Suggestion was successfully created.' }
+        # format.html { redirect_to @suggestion, notice: 'Suggestion was successfully created.' }
+        format.js {redirect_to suggestions_url, notice: "Thank you for your suggestion!"}
         format.json { render :show, status: :created, location: @suggestion }
       else
-        format.html { render :new }
+        format.js { render :new }
         format.json { render json: @suggestion.errors, status: :unprocessable_entity }
       end
     end
@@ -62,13 +64,14 @@ class SuggestionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_suggestion
-      @suggestion = Suggestion.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def suggestion_params
-      params.require(:suggestion).permit(:title, :suggestion, :active_status, :del_status)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_suggestion
+    @suggestion = Suggestion.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def suggestion_params
+    params.require(:suggestion).permit(:title, :suggestion, :active_status, :del_status)
+  end
 end

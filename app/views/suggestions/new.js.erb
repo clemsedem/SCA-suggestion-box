@@ -1,0 +1,4 @@
+//(".me").html("<%#= escape_javascript(render(:partial =>"suggestions/form")) %>");
+console.log("new.js file");
+let body = document.getElementById('form');
+body.innerHTML = "<%= j render 'form' %>"+body.innerHTML;
